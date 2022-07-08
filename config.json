@@ -1,7 +1,6 @@
 {
     "bot_token": "",
     "prefix": ".",
-    "color": "0xfb00ff",
     "use_proxy": false,
     "bot_channel1": 995030985152409755,
     "bot_channel2": 995030985152409755,
