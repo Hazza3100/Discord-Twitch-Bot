@@ -58,6 +58,8 @@ v1 ⋮ 08/7/22
 
 ・Add Channel Lock
 
+・Add Custom amounts for roles
+
 ・Add logs
 
 ・Add More commands
