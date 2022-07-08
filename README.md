@@ -51,14 +51,12 @@ v1 ⋮ 08/7/22
 + Stable Release
 + Config
 + Role Config
++ Channel Lock
 ```
 
 
 
 ## 💭・To do
-
-・Add Channel Lock
-
 
 ・Add logs
 
