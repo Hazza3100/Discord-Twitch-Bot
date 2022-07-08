@@ -1,0 +1,17 @@
+{
+    "bot_token": "",
+    "prefix": ".",
+    "color": "0xfb00ff",
+    "use_proxy": false,
+    "role1": "Member",
+    "role2": "Bronze",
+    "role3": "Silver",
+    "role4": "Gold",
+    "role5": "Premium",
+    "default_amount": 25,
+    "role1_amount": 50,
+    "role2_amount": 80,
+    "role3_amount": 120,
+    "role4_amount": 180,
+    "role5_amount": 300
+}
