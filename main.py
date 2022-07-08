@@ -6,7 +6,7 @@ from discord.ext import commands
 
 
 prefix = "."
-token = "OTk1MDMxMTg3MDcwMzg2MjY4.GdT2R6.2CVp9hR_3Ljby2VfnsK9MUITkv9PHx0jM-ILpE"
+token = ""
 color = 0xfb00ff
 
 bot = commands.Bot(command_prefix=prefix, help_command=None)
