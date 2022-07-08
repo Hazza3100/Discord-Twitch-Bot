@@ -14,6 +14,8 @@ with open('config.json') as f:
 token = cfg['bot_token']
 prefix = cfg['prefix']
 color = cfg['color']
+bot_channel1 = cfg['bot_channel1']
+bot_channel2 = cfg['bot_channel2']
 use_proxy = cfg['use_proxy']
 role_1 = cfg['role1']
 role_2 = cfg['role2']
@@ -123,32 +125,33 @@ def follow_user(username):
 
 @bot.command()
 async def follow(ctx, channel_name):
+    if ctx.channel.id == bot_channel1 or ctx.channel.id == bot_channel2:
 
-    username = get_user(channel_name)
+        username = get_user(channel_name)
 
-    role1 = discord.utils.get(ctx.guild.roles, name=role_1)
-    role2 = discord.utils.get(ctx.guild.roles, name=role_2)
-    role3 = discord.utils.get(ctx.guild.roles, name=role_3)
-    role4 = discord.utils.get(ctx.guild.roles, name=role_4)
-    role5 = discord.utils.get(ctx.guild.roles, name=role_5)
+        role1 = discord.utils.get(ctx.guild.roles, name=role_1)
+        role2 = discord.utils.get(ctx.guild.roles, name=role_2)
+        role3 = discord.utils.get(ctx.guild.roles, name=role_3)
+        role4 = discord.utils.get(ctx.guild.roles, name=role_4)
+        role5 = discord.utils.get(ctx.guild.roles, name=role_5)
 
-    follow_amount = default_amount
+        follow_amount = default_amount
 
-    if role1 in ctx.author.roles:
-        follow_amount = role1_amount
-    elif role2 in ctx.author.roles:
-        follow_amount = role2_amount
-    elif role3 in ctx.author.roles:
-        follow_amount = role3_amount
-    elif role4 in ctx.author.roles:
-        follow_amount = role4_amount
-    elif role5 in ctx.author.roles:
-        follow_amount = role5_amount
+        if role1 in ctx.author.roles:
+            follow_amount = role1_amount
+        elif role2 in ctx.author.roles:
+            follow_amount = role2_amount
+        elif role3 in ctx.author.roles:
+            follow_amount = role3_amount
+        elif role4 in ctx.author.roles:
+            follow_amount = role4_amount
+        elif role5 in ctx.author.roles:
+            follow_amount = role5_amount
 
-    embed = discord.Embed(title="Twitch followers", description=f"Sending **{follow_amount}** Twitch Followers to **{username}**", color=color)
-    await ctx.send(embed=embed)
-    for i in range(int(follow_amount)):
-        follow_user(username)
+        embed = discord.Embed(title="Twitch followers", description=f"Sending **{follow_amount}** Twitch Followers to **{username}**", color=color)
+        await ctx.send(embed=embed)
+        for i in range(int(follow_amount)):
+            follow_user(username)
 
 
 bot.run(token)
