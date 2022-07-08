@@ -49,16 +49,16 @@ This project is licensed under the GPL General Public License v3.0 License - see
 ```diff
 v1 ⋮ 08/7/22
 + Stable Release
++ Config
++ Role Config
 ```
 
 
 
 ## 💭・To do
-・Add config for easy access
 
 ・Add Channel Lock
 
-・Add Custom amounts for roles
 
 ・Add logs
 
