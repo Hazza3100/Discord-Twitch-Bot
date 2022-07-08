@@ -13,7 +13,7 @@ with open('config.json') as f:
 
 token = cfg['bot_token']
 prefix = cfg['prefix']
-color = cfg['color']
+color = 0xfb00ff
 bot_channel1 = cfg['bot_channel1']
 bot_channel2 = cfg['bot_channel2']
 use_proxy = cfg['use_proxy']
@@ -125,7 +125,7 @@ def follow_user(username):
 
 @bot.command()
 async def follow(ctx, channel_name):
-    if ctx.channel.id == bot_channel1 or ctx.channel.id == bot_channel2:
+    if ctx.channel.id == int(bot_channel1) or ctx.channel.id == int(bot_channel2):
 
         username = get_user(channel_name)
 
