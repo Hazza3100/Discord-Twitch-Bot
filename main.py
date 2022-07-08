@@ -148,7 +148,7 @@ async def follow(ctx, channel_name):
         elif role5 in ctx.author.roles:
             follow_amount = role5_amount
 
-        embed = discord.Embed(title="Twitch followers", description=f"Sending **{follow_amount}** Twitch Followers to **{username}**", color=color)
+        embed = discord.Embed(title="Twitch followers", description=f"Sending **{follow_amount}** Twitch Followers to **{channel_name}**", color=color)
         await ctx.send(embed=embed)
         for i in range(int(follow_amount)):
             follow_user(username)
