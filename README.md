@@ -55,10 +55,15 @@ v1 ⋮ 08/7/22
 
 ## 💭・To do
 ・Add config for easy access
+
 ・Add Channel Lock
+
 ・Add logs
+
 ・Add More commands
+
 ・Help embed
+
 ・Tell me more idea's
 
 
