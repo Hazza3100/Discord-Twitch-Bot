@@ -3,9 +3,9 @@ This is a free twitch bot for discord
 
 
 # ・How to use
-・Place token on line 9
+・Place token in coonfig
 
-・Change prefix to whatever you want on line 8
+・Change prefix to whatever you want in config
 
 # ・About
 
