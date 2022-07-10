@@ -3,7 +3,7 @@ This is a free twitch bot for discord
 
 
 # ・How to use
-・Place token in coonfig
+・Place token in config
 
 ・Change prefix to whatever you want in config
 
