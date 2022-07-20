@@ -1,3 +1,4 @@
+import threading
 import discord
 import requests
 import random
@@ -17,6 +18,7 @@ color = 0xfb00ff
 bot_channel1 = cfg['bot_channel1']
 bot_channel2 = cfg['bot_channel2']
 use_proxy = cfg['use_proxy']
+dont_change = cfg['dont_change']
 role_1 = cfg['role1']
 role_2 = cfg['role2']
 role_3 = cfg['role3']
@@ -59,99 +61,92 @@ def get_user(channel_name):
 
 
 
-
-
-
-
-
-def follow_user(username):
-
-    token = open('tokens.txt', 'r').read().splitlines()
-    tokens = random.choice(token)
-
-    proxy_list = open('proxies.txt','r').read().splitlines()
-
-
-    proxy = random.choice(proxy_list)
-    proxies = {
-    'http': f'http://{proxy}',
-    'https':f'http://{proxy}'
-    }
-
-    headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "en-GB",
-        "Authorization": f"OAuth {tokens}",
-        "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko",
-        "Connection": "keep-alive",
-        "Content-Length": "541",
-        "Content-Type": "text/plain;charset=UTF-8",
-        "Host": "gql.twitch.tv",
-        "Origin": "https://www.twitch.tv",
-        "Referer": "https://www.twitch.tv/",
-        "sec-ch-ua": '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": "Windows",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-site",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-        "X-Device-Id": "o9Mf6aJaLEuNlPc7a1MOSXkO21SBCMHr",
-        }
-
-    json = {
-    "operationName": "FollowButton_FollowUser",
-    "variables": {
-        "input": {
-        "disableNotifications": False,
-        "targetID": f"{username}"
-        }
-    },
-    "extensions": {
-        "persistedQuery": {
-        "version": 1,
-        "sha256Hash": "800e7346bdf7e5278a3c1d3f21b2b56e2639928f86815677a7126b093b2fdd08"
-        }
-    }
-    }
-    if use_proxy == False:
-        r = requests.post('https://gql.twitch.tv/gql', headers=headers, json=json)
-    else:
-        r = requests.post('https://gql.twitch.tv/gql', headers=headers, json=json, proxies=proxies)
-
-
-
-
 @bot.command()
 async def follow(ctx, channel_name):
     if ctx.channel.id == int(bot_channel1) or ctx.channel.id == int(bot_channel2):
+        if dont_change == True:
+            print("Change config dont_change to false")
+        else:
+            username = get_user(channel_name)
 
-        username = get_user(channel_name)
+            role1 = discord.utils.get(ctx.guild.roles, name=role_1)
+            role2 = discord.utils.get(ctx.guild.roles, name=role_2)
+            role3 = discord.utils.get(ctx.guild.roles, name=role_3)
+            role4 = discord.utils.get(ctx.guild.roles, name=role_4)
+            role5 = discord.utils.get(ctx.guild.roles, name=role_5)
 
-        role1 = discord.utils.get(ctx.guild.roles, name=role_1)
-        role2 = discord.utils.get(ctx.guild.roles, name=role_2)
-        role3 = discord.utils.get(ctx.guild.roles, name=role_3)
-        role4 = discord.utils.get(ctx.guild.roles, name=role_4)
-        role5 = discord.utils.get(ctx.guild.roles, name=role_5)
+            follow_amount = default_amount
 
-        follow_amount = default_amount
+            if role5 in ctx.author.roles:
+                follow_amount = role5_amount
+            elif role4 in ctx.author.roles:
+                follow_amount = role4_amount
+            elif role3 in ctx.author.roles:
+                follow_amount = role3_amount
+            elif role2 in ctx.author.roles:
+                follow_amount = role2_amount
+            elif role1 in ctx.author.roles:
+                follow_amount = role1_amount
 
-        if role1 in ctx.author.roles:
-            follow_amount = role1_amount
-        elif role2 in ctx.author.roles:
-            follow_amount = role2_amount
-        elif role3 in ctx.author.roles:
-            follow_amount = role3_amount
-        elif role4 in ctx.author.roles:
-            follow_amount = role4_amount
-        elif role5 in ctx.author.roles:
-            follow_amount = role5_amount
+            embed = discord.Embed(title="Twitch followers", description=f"Sending **{follow_amount}** Twitch Followers to **{channel_name}**", color=color)
+            await ctx.send(embed=embed)
 
-        embed = discord.Embed(title="Twitch followers", description=f"Sending **{follow_amount}** Twitch Followers to **{channel_name}**", color=color)
-        await ctx.send(embed=embed)
-        for i in range(int(follow_amount)):
-            follow_user(username)
 
+            def follow_user():
+                
+                token = open('tokens.txt', 'r').read().splitlines()
+                tokens = random.choice(token)
+
+                proxy_list = open('proxies.txt','r').read().splitlines()
+
+
+                proxy = random.choice(proxy_list)
+                proxies = {
+                'http': f'http://{proxy}',
+                'https':f'http://{proxy}'
+                }
+
+                headers = {
+                    "Accept": "*/*",
+                    "Accept-Encoding": "gzip, deflate, br",
+                    "Accept-Language": "en-GB",
+                    "Authorization": f"OAuth {tokens}",
+                    "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko",
+                    "Connection": "keep-alive",
+                    "Content-Length": "541",
+                    "Content-Type": "text/plain;charset=UTF-8",
+                    "Host": "gql.twitch.tv",
+                    "Origin": "https://www.twitch.tv",
+                    "Referer": "https://www.twitch.tv/",
+                    "sec-ch-ua": '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-ch-ua-platform": "Windows",
+                    "Sec-Fetch-Dest": "empty",
+                    "Sec-Fetch-Mode": "cors",
+                    "Sec-Fetch-Site": "same-site",
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+                    }
+
+                json = {
+                "operationName": "FollowButton_FollowUser",
+                "variables": {
+                    "input": {
+                    "disableNotifications": False,
+                    "targetID": f"{username}"
+                    }
+                },
+                "extensions": {
+                    "persistedQuery": {
+                    "version": 1,
+                    "sha256Hash": "800e7346bdf7e5278a3c1d3f21b2b56e2639928f86815677a7126b093b2fdd08"
+                    }
+                }
+                }
+                if use_proxy == False:
+                    r = requests.post('https://gql.twitch.tv/gql', headers=headers, json=json)
+                else:
+                    r = requests.post('https://gql.twitch.tv/gql', headers=headers, json=json, proxies=proxies)
+
+            threading.Thread(target=follow_user).start()
 
 bot.run(token)
