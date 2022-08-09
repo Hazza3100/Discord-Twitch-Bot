@@ -93,59 +93,59 @@ async def follow(ctx, channel_name):
 
 
             def follow_user():
-                
-                token = open('tokens.txt', 'r').read().splitlines()
-                tokens = random.choice(token)
+                for i in range(follow_amount):
+                    token = open('tokens.txt', 'r').read().splitlines()
+                    tokens = random.choice(token)
 
-                proxy_list = open('proxies.txt','r').read().splitlines()
+                    proxy_list = open('proxies.txt','r').read().splitlines()
 
 
-                proxy = random.choice(proxy_list)
-                proxies = {
-                'http': f'http://{proxy}',
-                'https':f'http://{proxy}'
-                }
-
-                headers = {
-                    "Accept": "*/*",
-                    "Accept-Encoding": "gzip, deflate, br",
-                    "Accept-Language": "en-GB",
-                    "Authorization": f"OAuth {tokens}",
-                    "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko",
-                    "Connection": "keep-alive",
-                    "Content-Length": "541",
-                    "Content-Type": "text/plain;charset=UTF-8",
-                    "Host": "gql.twitch.tv",
-                    "Origin": "https://www.twitch.tv",
-                    "Referer": "https://www.twitch.tv/",
-                    "sec-ch-ua": '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
-                    "sec-ch-ua-mobile": "?0",
-                    "sec-ch-ua-platform": "Windows",
-                    "Sec-Fetch-Dest": "empty",
-                    "Sec-Fetch-Mode": "cors",
-                    "Sec-Fetch-Site": "same-site",
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+                    proxy = random.choice(proxy_list)
+                    proxies = {
+                    'http': f'http://{proxy}',
+                    'https':f'http://{proxy}'
                     }
 
-                json = {
-                "operationName": "FollowButton_FollowUser",
-                "variables": {
-                    "input": {
-                    "disableNotifications": False,
-                    "targetID": f"{username}"
+                    headers = {
+                        "Accept": "*/*",
+                        "Accept-Encoding": "gzip, deflate, br",
+                        "Accept-Language": "en-GB",
+                        "Authorization": f"OAuth {tokens}",
+                        "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko",
+                        "Connection": "keep-alive",
+                        "Content-Length": "541",
+                        "Content-Type": "text/plain;charset=UTF-8",
+                        "Host": "gql.twitch.tv",
+                        "Origin": "https://www.twitch.tv",
+                        "Referer": "https://www.twitch.tv/",
+                        "sec-ch-ua": '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
+                        "sec-ch-ua-mobile": "?0",
+                        "sec-ch-ua-platform": "Windows",
+                        "Sec-Fetch-Dest": "empty",
+                        "Sec-Fetch-Mode": "cors",
+                        "Sec-Fetch-Site": "same-site",
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+                        }
+
+                    json = {
+                    "operationName": "FollowButton_FollowUser",
+                    "variables": {
+                        "input": {
+                        "disableNotifications": False,
+                        "targetID": f"{username}"
+                        }
+                    },
+                    "extensions": {
+                        "persistedQuery": {
+                        "version": 1,
+                        "sha256Hash": "800e7346bdf7e5278a3c1d3f21b2b56e2639928f86815677a7126b093b2fdd08"
+                        }
                     }
-                },
-                "extensions": {
-                    "persistedQuery": {
-                    "version": 1,
-                    "sha256Hash": "800e7346bdf7e5278a3c1d3f21b2b56e2639928f86815677a7126b093b2fdd08"
                     }
-                }
-                }
-                if use_proxy == False:
-                    r = requests.post('https://gql.twitch.tv/gql', headers=headers, json=json)
-                else:
-                    r = requests.post('https://gql.twitch.tv/gql', headers=headers, json=json, proxies=proxies)
+                    if use_proxy == False:
+                        r = requests.post('https://gql.twitch.tv/gql', headers=headers, json=json)
+                    else:
+                        r = requests.post('https://gql.twitch.tv/gql', headers=headers, json=json, proxies=proxies)
 
             threading.Thread(target=follow_user).start()
 
