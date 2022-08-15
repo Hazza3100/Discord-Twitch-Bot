@@ -89,7 +89,8 @@ async def follow(ctx, channel_name):
                 follow_amount = role1_amount
 
             embed = discord.Embed(title="Twitch followers", description=f"Sending **{follow_amount}** Twitch Followers to **{channel_name}**", color=color)
-            await ctx.send(embed=embed)
+            await ctx.send(embed=embed, delout_after=5)
+            await ctx.message.delete()
 
 
             def follow_user():
