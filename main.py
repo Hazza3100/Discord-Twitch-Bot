@@ -33,8 +33,9 @@ role4_amount = cfg['role4_amount']
 role5_amount = cfg['role5_amount']
 
 
+intents = discord.Intents.all()
 
-bot = commands.Bot(command_prefix=prefix, help_command=None)
+bot = commands.Bot(command_prefix=prefix, help_command=None, intents=intents)
 
 
 
